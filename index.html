@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NYT 21세기 최고의 영화 100선 대시보드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbfaf7;
+    --bg-2:#f4f2ec;
+    --surface:#ffffff;
+    --surface-2:#f7f5f0;
+    --border:#e4e0d6;
+    --border-soft:#efece4;
+    --text:#1a1815;
+    --muted:#6b655c;
+    --muted-2:#9a9389;
+    --ink:#11100e;
+    --gold:#b8862a;
+    --gold-soft:#e9d9b0;
+    --kr:#1d4ed8;
+    --kr-soft:#2563eb;
+    --kr-bg:#eff6ff;
+    --kr-border:#bfdbfe;
+    --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px -16px rgba(0,0,0,.12);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter','Noto Sans KR',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    font-feature-settings:"tnum" 1,"lnum" 1;
+    background-image:
+      radial-gradient(900px 500px at 85% -5%, rgba(184,134,42,.06), transparent 60%),
+      radial-gradient(700px 600px at -5% 110%, rgba(29,78,216,.04), transparent 60%);
+    background-attachment:fixed;
+  }
+  ::selection{background:rgba(184,134,42,.2);color:var(--ink)}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 28px 80px}
+
+  /* Masthead */
+  header.masthead{padding:36px 0 26px;border-bottom:1px solid var(--border)}
+  .masthead-top{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+  .logo-mark{width:30px;height:30px;flex:0 0 auto}
+  .masthead-kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .masthead h1{
+    font-family:'Playfair Display','Noto Sans KR',serif;
+    font-weight:900;
+    font-size:clamp(28px,4.6vw,46px);
+    line-height:1.04;
+    letter-spacing:-.01em;
+    margin:0 0 10px;
+    max-width:980px;
+    color:var(--ink);
+  }
+  .masthead h1 em{font-style:italic;color:var(--gold);font-weight:500}
+  .masthead-sub{color:var(--muted);font-size:14px;max-width:780px;line-height:1.6}
+  .masthead-sub a{color:var(--text);text-decoration:underline;text-decoration-color:var(--border);text-underline-offset:3px}
+  .masthead-meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:var(--muted-2);letter-spacing:.04em}
+  .masthead-meta span b{color:var(--muted);font-weight:600}
+
+  /* KPI */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:26px 0 0}
+  .kpi{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;padding:18px 18px 16px;position:relative;overflow:hidden;box-shadow:var(--shadow);
+  }
+  .kpi .label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .kpi .value{font-family:'Playfair Display',serif;font-size:38px;font-weight:700;line-height:1;margin-top:10px;letter-spacing:-.02em;color:var(--ink)}
+  .kpi .sub{font-size:12px;color:var(--muted-2);margin-top:8px}
+  .kpi.kr{border-color:var(--kr-border);background:linear-gradient(180deg,var(--kr-bg),#fff)}
+  .kpi.kr .value{color:var(--kr)}
+  .kpi.kr .label{color:#1e40af}
+  .kpi .accent-bar{position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold)}
+  .kpi.kr .accent-bar{background:var(--kr)}
+
+  /* Korean spotlight */
+  .kr-spotlight{margin-top:18px;border:1px solid var(--kr-border);border-radius:16px;overflow:hidden;background:linear-gradient(180deg,var(--kr-bg),#fff 45%)}
+  .kr-head{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border-soft)}
+  .kr-flag{width:24px;height:16px;border-radius:2px;flex:0 0 auto;display:inline-block;border:1px solid rgba(0,0,0,.15);overflow:hidden}
+  .kr-flag img{width:100%;height:100%;object-fit:cover;display:block}
+  .kr-head h2{font-size:15px;font-weight:700;margin:0;letter-spacing:.01em;color:var(--ink)}
+  .kr-head .desc{font-size:12px;color:var(--muted);margin-left:auto}
+  .kr-cards{display:grid;grid-template-columns:repeat(3,1fr)}
+  .kr-card{padding:18px 20px;border-right:1px solid var(--border-soft);position:relative}
+  .kr-card:last-child{border-right:none}
+  .kr-rank{font-family:'Playfair Display',serif;font-size:46px;font-weight:900;line-height:.9;color:var(--kr);letter-spacing:-.04em}
+  .kr-rank small{font-size:14px;color:var(--muted-2);font-weight:500;margin-left:2px}
+  .kr-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin:8px 0 2px;line-height:1.2;color:var(--ink)}
+  .kr-title .en{font-size:13px;color:var(--muted);font-weight:400;font-style:italic;font-family:'Inter',sans-serif}
+  .kr-meta{font-size:13px;color:var(--muted);display:flex;gap:10px;align-items:center}
+  .kr-meta .dot{width:3px;height:3px;border-radius:50%;background:var(--muted-2)}
+  .kr-tags{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap}
+  .tag{font-size:11px;padding:3px 9px;border-radius:999px;background:var(--surface-2);border:1px solid var(--border);color:var(--muted)}
+
+  /* Controls */
+  .controls{margin:30px 0 0;display:grid;grid-template-columns:1.6fr repeat(4,1fr) auto;gap:10px;align-items:center}
+  .field{position:relative}
+  .field label{position:absolute;top:-7px;left:11px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);background:var(--bg);padding:0 6px;font-weight:600;z-index:2}
+  input[type=text],select{
+    width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);
+    padding:11px 12px;border-radius:10px;font:inherit;font-size:13px;outline:none;appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%236b655c' stroke-width='1.6' d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;
+  }
+  select option{background:var(--surface);color:var(--text)}
+  input[type=text]:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,134,42,.15)}
+  .search-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted-2);pointer-events:none}
+  input[type=text].has-ico{padding-left:34px}
+  .btn-toggle{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:11px 14px;border-radius:10px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.15s;box-shadow:var(--shadow)}
+  .btn-toggle:hover{border-color:var(--gold)}
+  .btn-toggle.active{background:var(--kr-bg);border-color:var(--kr);color:var(--kr)}
+  .btn-toggle .sw{width:14px;height:14px;border-radius:3px;border:1.5px solid var(--muted-2);display:inline-block;position:relative}
+  .btn-toggle.active .sw{background:var(--kr);border-color:var(--kr)}
+  .btn-toggle.active .sw::after{content:"";position:absolute;left:3px;top:0px;width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+
+  .results-bar{display:flex;align-items:center;gap:14px;margin:16px 0 0;font-size:13px;color:var(--muted)}
+  .results-bar b{color:var(--text)}
+  .results-bar .clear{margin-left:auto;color:var(--gold);cursor:pointer;font-size:12px;font-weight:600;border:none;background:none}
+  .results-bar .clear:hover{text-decoration:underline}
+
+  /* Table */
+  .table-wrap{margin-top:22px;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
+  .tbl-head{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--border-soft)}
+  .tbl-head h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0;font-weight:600}
+  .tbl-head .legend{display:flex;align-items:center;gap:14px;margin-left:auto;font-size:11px;color:var(--muted-2)}
+  .legend .sw{width:9px;height:9px;border-radius:2px;background:var(--kr);display:inline-block;margin-right:5px;vertical-align:middle}
+  .table-scroll{max-height:760px;overflow:auto;overscroll-behavior:contain}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  thead th{position:sticky;top:0;background:#fbfaf7;z-index:3;text-align:left;padding:11px 14px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);white-space:nowrap;cursor:pointer;user-select:none}
+  thead th:hover{color:var(--text)}
+  thead th .arrow{opacity:.4;font-size:10px;margin-left:3px}
+  thead th.sorted .arrow{opacity:1;color:var(--gold)}
+  tbody td{padding:11px 14px;border-bottom:1px solid var(--border-soft);vertical-align:middle}
+  tbody tr{transition:background .12s}
+  tbody tr:hover{background:rgba(0,0,0,.02)}
+  tbody tr.kr-row{background:var(--kr-bg)}
+  tbody tr.kr-row td:first-child{box-shadow:inset 3px 0 0 var(--kr)}
+  tbody tr.kr-row:hover{background:#e0ecff}
+  td.rank{font-family:'Playfair Display',serif;font-weight:700;color:var(--muted);width:54px;font-size:15px}
+  tbody tr.kr-row td.rank{color:var(--kr)}
+  td.title{font-weight:600;color:var(--ink);max-width:320px}
+  td.title .yr{color:var(--muted-2);font-weight:400;margin-left:5px;font-size:12px}
+  td.title .en{font-size:12px;color:var(--muted-2);font-weight:400;font-style:italic;margin-left:2px}
+  td.dir{color:var(--muted);max-width:200px}
+  td.country{font-size:12px;color:var(--muted);white-space:nowrap}
+  td.genres{font-size:11px}
+  .pill{display:inline-block;padding:2px 8px;border-radius:999px;background:var(--surface-2);border:1px solid var(--border);color:var(--muted);margin:1px 2px}
+  .empty-row td{text-align:center;color:var(--muted-2);padding:40px;font-style:italic}
+
+  footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted-2);font-size:12px;line-height:1.7}
+  footer a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+
+  @media(max-width:980px){
+    .kpis{grid-template-columns:repeat(2,1fr)}
+    .kr-cards{grid-template-columns:1fr}
+    .kr-card{border-right:none;border-bottom:1px solid var(--border-soft)}
+    .controls{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:560px){
+    .wrap{padding:0 14px 60px}
+    .controls{grid-template-columns:1fr}
+    .kpis{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="masthead-top">
+      <svg class="logo-mark" viewBox="0 0 32 32" fill="none" aria-label="영화 필름 마크">
+        <rect x="2" y="6" width="28" height="20" rx="3" stroke="#b8862a" stroke-width="2"/>
+        <circle cx="8" cy="11" r="1.6" fill="#b8862a"/>
+        <circle cx="14" cy="11" r="1.6" fill="#b8862a"/>
+        <circle cx="20" cy="11" r="1.6" fill="#b8862a"/>
+        <circle cx="26" cy="11" r="1.6" fill="#b8862a"/>
+        <path d="M2 16h28" stroke="#1d4ed8" stroke-width="1.6"/>
+        <rect x="6" y="19" width="14" height="4" rx="1" fill="#b8862a" opacity=".5"/>
+      </svg>
+      <span class="masthead-kicker">The New York Times · 2025</span>
+    </div>
+    <h1>21세기 최고의 영화 <em>100선</em></h1>
+    <p class="masthead-sub">뉴욕타임스가 500여 명의 영화계 인사 투표로 선정한 21세기(2000년 이후) 최고의 영화 100편을 순위·감독·개봉연도·제작국·장르로 정리한 대시보드입니다. 한국에서 개봉한 영화는 한국어 제목과 함께 원제를 표기했으며, 한국 영화가 리스트 내에서 차지하는 위치를 한눈에 확인할 수 있습니다.</p>
+    <div class="masthead-meta">
+      <span><b>출처</b> 뉴욕타임스 (2025년 6월)</span>
+      <span><b>투표</b> 영화계 500+ 인사</span>
+      <span><b>국가 데이터</b> Wikidata (P495 제작국)</span>
+    </div>
+  </header>
+
+  <!-- KPIs -->
+  <section class="kpis">
+    <div class="kpi"><div class="accent-bar"></div><div class="label">총 영화</div><div class="value">100</div><div class="sub">2000–2023년 개봉작</div></div>
+    <div class="kpi"><div class="accent-bar"></div><div class="label">제작국 수</div><div class="value" id="kpiCountries">—</div><div class="sub">주요 제작국 기준</div></div>
+    <div class="kpi"><div class="accent-bar"></div><div class="label">최다 진출 감독</div><div class="value" id="kpiDirector" style="font-size:22px">—</div><div class="sub" id="kpiDirectorSub">—</div></div>
+    <div class="kpi kr"><div class="accent-bar"></div><div class="label">한국 영화</div><div class="value">3</div><div class="sub">1위·43위·99위</div></div>
+  </section>
+
+  <!-- Korean spotlight -->
+  <section class="kr-spotlight">
+    <div class="kr-head">
+      <span class="kr-flag" title="대한민국"><img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_South_Korea.svg" alt="대한민국" width="24" height="16"></span>
+      <h2>한국 영화, 100선 안의 위치</h2>
+      <span class="desc">1위(최정상)부터 99위(후반부)까지 세 편이 이름을 올렸습니다</span>
+    </div>
+    <div class="kr-cards" id="krCards"></div>
+  </section>
+
+  <!-- Controls -->
+  <section class="controls">
+    <div class="field">
+      <label>검색</label>
+      <svg class="search-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      <input type="text" id="search" class="has-ico" placeholder="제목 또는 감독 검색" />
+    </div>
+    <div class="field">
+      <label>국가</label>
+      <select id="filterCountry"><option value="">전체 국가</option></select>
+    </div>
+    <div class="field">
+      <label>감독</label>
+      <select id="filterDirector"><option value="">전체 감독</option></select>
+    </div>
+    <div class="field">
+      <label>장르</label>
+      <select id="filterGenre"><option value="">전체 장르</option></select>
+    </div>
+    <div class="field">
+      <label>정렬</label>
+      <select id="sortBy">
+        <option value="rank">순위 (오름차순)</option>
+        <option value="rankDesc">순위 (내림차순)</option>
+        <option value="yearAsc">연도 (오름차순)</option>
+        <option value="yearDesc">연도 (내림차순)</option>
+        <option value="title">제목 (가나다)</option>
+        <option value="director">감독 (가나다)</option>
+      </select>
+    </div>
+    <button class="btn-toggle" id="krOnly"><span class="sw"></span>한국 영화만</button>
+  </section>
+
+  <div class="results-bar">
+    <span id="resultCount"></span>
+    <button class="clear" id="clearAll">필터 초기화</button>
+  </div>
+
+  <!-- Table -->
+  <section class="table-wrap">
+    <div class="tbl-head">
+      <h3>영화 목록</h3>
+      <div class="legend"><span><span class="sw"></span>한국 영화</span><span id="visibleCount"></span></div>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th data-sort="rank">순위 <span class="arrow">↕</span></th>
+            <th data-sort="title">제목 <span class="arrow">↕</span></th>
+            <th data-sort="director">감독 <span class="arrow">↕</span></th>
+            <th data-sort="year">연도 <span class="arrow">↕</span></th>
+            <th data-sort="country">국가 <span class="arrow">↕</span></th>
+            <th>장르</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    본 대시보드는 뉴욕타임스의 "The 100 Best Movies of the 21st Century"(2025년 6월) 목록을 기반으로 합니다. 순위·제목·감독·연도는 해당 목록을 따르며, 제작국 정보는 <a href="https://www.wikidata.org/wiki/Property:P495" target="_blank" rel="noopener">Wikidata P495(제작국)</a>을, 장르는 Wikidata P136을 기준으로 정리했습니다. 한국어 제목은 한국 개봉 시 사용된 공식 제목(KMDb·KOFIC 기준)을 따르며, 괄호 안의 원제와 함께 표기합니다. 2개국 이상 공동제작은 첫 번째 제작국을 대표 국가로 표기하고 필터에는 모든 제작국을 포함합니다.
+  </footer>
+</div>
+
+<script src="data.js"></script>
+<script>
+const KR_COUNTRY = 'South Korea';
+const isKR = m => (m.countries||[]).includes(KR_COUNTRY) || m.country===KR_COUNTRY;
+
+function uniq(arr){return [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ko'))}
+const countries = uniq(MOVIES.flatMap(m=>m.countries));
+const directors = uniq(MOVIES.map(m=>m.director));
+const genres = uniq(MOVIES.flatMap(m=>m.genres));
+
+function fillSelect(id, items){
+  const sel=document.getElementById(id);
+  items.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;sel.appendChild(o);});
+}
+fillSelect('filterCountry', countries);
+fillSelect('filterDirector', directors);
+fillSelect('filterGenre', genres);
+
+document.getElementById('kpiCountries').textContent = countries.length;
+const dirCount={};
+MOVIES.forEach(m=>dirCount[m.director]=(dirCount[m.director]||0)+1);
+const topDir=Object.entries(dirCount).sort((a,b)=>b[1]-a[1])[0];
+document.getElementById('kpiDirector').textContent = topDir[0];
+document.getElementById('kpiDirectorSub').textContent = `${topDir[1]}편 진출 · 최다 기록`;
+
+const krFilms = MOVIES.filter(isKR).sort((a,b)=>a.rank-b.rank);
+const krCards=document.getElementById('krCards');
+krFilms.forEach(m=>{
+  const card=document.createElement('div');card.className='kr-card';
+  const display = m.ko ? `${m.ko} <span class="en">(${m.title})</span>` : m.title;
+  card.innerHTML=`
+    <div class="kr-rank">#${m.rank}<small>/100</small></div>
+    <div class="kr-title">${display}</div>
+    <div class="kr-meta"><span>${m.year}</span><span class="dot"></span><span>${m.director}</span></div>
+    <div class="kr-tags">${m.genres.map(g=>`<span class="tag">${g}</span>`).join('')}</div>`;
+  krCards.appendChild(card);
+});
+
+let state={search:'',country:'',director:'',genre:'',sort:'rank',krOnly:false};
+
+['search','filterCountry','filterDirector','filterGenre','sortBy'].forEach(id=>{
+  const el=document.getElementById(id);
+  el.addEventListener('input',e=>{
+    const key=id==='search'?'search':id==='filterCountry'?'country':id==='filterDirector'?'director':id==='filterGenre'?'genre':'sort';
+    state[key]=e.target.value;render();
+  });
+});
+document.getElementById('krOnly').addEventListener('click',function(){
+  state.krOnly=!state.krOnly;this.classList.toggle('active',state.krOnly);render();
+});
+document.getElementById('clearAll').addEventListener('click',()=>{
+  state={search:'',country:'',director:'',genre:'',sort:'rank',krOnly:false};
+  document.getElementById('search').value='';
+  ['filterCountry','filterDirector','filterGenre','sortBy'].forEach(id=>document.getElementById(id).value=id==='sortBy'?'rank':'');
+  document.getElementById('krOnly').classList.remove('active');
+  render();
+});
+
+document.querySelectorAll('thead th[data-sort]').forEach(th=>{
+  th.addEventListener('click',()=>{
+    const key=th.dataset.sort;
+    let next;
+    if(key==='rank'){ next = state.sort==='rank'?'rankDesc':'rank'; }
+    else if(key==='year'){ next = state.sort==='yearAsc'?'yearDesc':'yearAsc'; }
+    else if(key==='title'){ next = state.sort==='title'?'title':'title'; }
+    else if(key==='director'){ next = state.sort==='director'?'director':'director'; }
+    else { next='rank'; }
+    state.sort=next;
+    document.getElementById('sortBy').value=next;
+    render();
+  });
+});
+
+function getFiltered(){
+  let list=MOVIES.slice();
+  const q=state.search.trim().toLowerCase();
+  if(q) list=list.filter(m=>(m.title.toLowerCase().includes(q)||(m.ko||'').toLowerCase().includes(q)||m.director.toLowerCase().includes(q)));
+  if(state.country) list=list.filter(m=>(m.countries||[]).includes(state.country));
+  if(state.director) list=list.filter(m=>m.director===state.director);
+  if(state.genre) list=list.filter(m=>(m.genres||[]).includes(state.genre));
+  if(state.krOnly) list=list.filter(isKR);
+  const s=state.sort;
+  list.sort((a,b)=>{
+    if(s==='rank')return a.rank-b.rank;
+    if(s==='rankDesc')return b.rank-a.rank;
+    if(s==='yearAsc')return a.year-b.year||a.rank-b.rank;
+    if(s==='yearDesc')return b.year-a.year||a.rank-b.rank;
+    if(s==='title')return (a.ko||a.title).localeCompare((b.ko||b.title),'ko');
+    if(s==='director')return a.director.localeCompare(b.director,'ko');
+    return a.rank-b.rank;
+  });
+  return list;
+}
+
+const tbody=document.getElementById('tbody');
+function render(){
+  const list=getFiltered();
+  tbody.innerHTML='';
+  if(!list.length){
+    tbody.innerHTML='<tr class="empty-row"><td colspan="6">조건에 맞는 영화가 없습니다</td></tr>';
+  }else{
+    list.forEach(m=>{
+      const kr=isKR(m);
+      const tr=document.createElement('tr');if(kr)tr.className='kr-row';
+      const titleCell = m.ko
+        ? `${m.ko} <span class="en">(${m.title})</span>`
+        : `${m.title}`;
+      tr.innerHTML=`
+        <td class="rank">${m.rank}</td>
+        <td class="title">${titleCell}</td>
+        <td class="dir">${m.director}</td>
+        <td>${m.year}</td>
+        <td class="country">${m.country}${(m.countries||[]).length>1?` <span style="color:var(--muted-2)">+${m.countries.length-1}</span>`:''}</td>
+        <td class="genres">${m.genres.map(g=>`<span class="pill">${g}</span>`).join('')}</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+  document.getElementById('resultCount').innerHTML=`<b>${list.length}</b>편 표시 중`;
+  document.getElementById('visibleCount').textContent=`${list.length}편`;
+  document.querySelectorAll('thead th').forEach(th=>{th.classList.remove('sorted');});
+  const activeMap={rank:'[data-sort="rank"]',rankDesc:'[data-sort="rank"]',yearAsc:'[data-sort="year"]',yearDesc:'[data-sort="year"]',title:'[data-sort="title"]',director:'[data-sort="director"]'};
+  const sel=document.querySelector(activeMap[state.sort]);
+  if(sel)sel.classList.add('sorted');
+}
+render();
+</script>
+</body>
+</html>
