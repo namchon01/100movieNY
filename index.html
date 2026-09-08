@@ -80,40 +80,21 @@
   .kpi .accent-bar{position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold)}
   .kpi.kr .accent-bar{background:var(--kr)}
 
-  /* Korean spotlight */
-  .kr-spotlight{margin-top:18px;border:1px solid var(--kr-border);border-radius:16px;overflow:hidden;background:linear-gradient(180deg,var(--kr-bg),#fff 45%)}
-  .kr-head{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border-soft)}
-  .kr-flag{width:24px;height:16px;border-radius:2px;flex:0 0 auto;display:inline-block;border:1px solid rgba(0,0,0,.15);overflow:hidden}
-  .kr-flag img{width:100%;height:100%;object-fit:cover;display:block}
-  .kr-head h2{font-size:15px;font-weight:700;margin:0;letter-spacing:.01em;color:var(--ink)}
-  .kr-head .desc{font-size:12px;color:var(--muted);margin-left:auto}
-  .kr-cards{display:grid;grid-template-columns:repeat(3,1fr)}
-  .kr-card{padding:18px 20px;border-right:1px solid var(--border-soft);position:relative}
-  .kr-card:last-child{border-right:none}
-  .kr-rank{font-family:'Playfair Display',serif;font-size:46px;font-weight:900;line-height:.9;color:var(--kr);letter-spacing:-.04em}
-  .kr-rank small{font-size:14px;color:var(--muted-2);font-weight:500;margin-left:2px}
-  .kr-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin:8px 0 2px;line-height:1.2;color:var(--ink)}
-  .kr-title .en{font-size:13px;color:var(--muted);font-weight:400;font-style:italic;font-family:'Inter',sans-serif}
-  .kr-meta{font-size:13px;color:var(--muted);display:flex;gap:10px;align-items:center}
-  .kr-meta .dot{width:3px;height:3px;border-radius:50%;background:var(--muted-2)}
-  .kr-tags{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap}
-  .tag{font-size:11px;padding:3px 9px;border-radius:999px;background:var(--surface-2);border:1px solid var(--border);color:var(--muted)}
-
   /* Controls */
-  .controls{margin:30px 0 0;display:grid;grid-template-columns:1.6fr repeat(4,1fr) auto;gap:10px;align-items:center}
+  .controls{margin:26px 0 0;display:grid;grid-template-columns:1.6fr repeat(4,1fr) auto;gap:10px;align-items:center}
   .field{position:relative}
   .field label{position:absolute;top:-7px;left:11px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);background:var(--bg);padding:0 6px;font-weight:600;z-index:2}
   input[type=text],select{
     width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);
-    padding:11px 12px;border-radius:10px;font:inherit;font-size:13px;outline:none;appearance:none;
+    padding:12px 12px;border-radius:10px;font:inherit;font-size:15px;outline:none;appearance:none;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%236b655c' stroke-width='1.6' d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
-    background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;
+    background-repeat:no-repeat;background-position:right 14px center;padding-right:34px;
   }
   select option{background:var(--surface);color:var(--text)}
   input[type=text]:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,134,42,.15)}
   .search-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted-2);pointer-events:none}
   input[type=text].has-ico{padding-left:34px}
-  .btn-toggle{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:11px 14px;border-radius:10px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.15s;box-shadow:var(--shadow)}
+  .btn-toggle{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:12px 14px;border-radius:10px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.15s;box-shadow:var(--shadow)}
   .btn-toggle:hover{border-color:var(--gold)}
   .btn-toggle.active{background:var(--kr-bg);border-color:var(--kr);color:var(--kr)}
   .btn-toggle .sw{width:14px;height:14px;border-radius:3px;border:1.5px solid var(--muted-2);display:inline-block;position:relative}
@@ -132,41 +113,61 @@
   .tbl-head .legend{display:flex;align-items:center;gap:14px;margin-left:auto;font-size:11px;color:var(--muted-2)}
   .legend .sw{width:9px;height:9px;border-radius:2px;background:var(--kr);display:inline-block;margin-right:5px;vertical-align:middle}
   .table-scroll{max-height:760px;overflow:auto;overscroll-behavior:contain}
-  table{width:100%;border-collapse:collapse;font-size:13.5px}
-  thead th{position:sticky;top:0;background:#fbfaf7;z-index:3;text-align:left;padding:11px 14px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);white-space:nowrap;cursor:pointer;user-select:none}
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  thead th{position:sticky;top:0;background:#fbfaf7;z-index:3;text-align:left;padding:12px 14px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);white-space:nowrap;cursor:pointer;user-select:none}
   thead th:hover{color:var(--text)}
   thead th .arrow{opacity:.4;font-size:10px;margin-left:3px}
   thead th.sorted .arrow{opacity:1;color:var(--gold)}
-  tbody td{padding:11px 14px;border-bottom:1px solid var(--border-soft);vertical-align:middle}
+  tbody td{padding:13px 14px;border-bottom:1px solid var(--border-soft);vertical-align:middle}
   tbody tr{transition:background .12s}
   tbody tr:hover{background:rgba(0,0,0,.02)}
   tbody tr.kr-row{background:var(--kr-bg)}
   tbody tr.kr-row td:first-child{box-shadow:inset 3px 0 0 var(--kr)}
   tbody tr.kr-row:hover{background:#e0ecff}
-  td.rank{font-family:'Playfair Display',serif;font-weight:700;color:var(--muted);width:54px;font-size:15px}
+  td.rank{font-family:'Playfair Display',serif;font-weight:700;color:var(--muted);width:58px;font-size:16px}
   tbody tr.kr-row td.rank{color:var(--kr)}
   td.title{font-weight:600;color:var(--ink);max-width:320px}
   td.title .yr{color:var(--muted-2);font-weight:400;margin-left:5px;font-size:12px}
-  td.title .en{font-size:12px;color:var(--muted-2);font-weight:400;font-style:italic;margin-left:2px}
+  td.title .en{font-size:13px;color:var(--muted-2);font-weight:400;font-style:italic;margin-left:2px}
   td.dir{color:var(--muted);max-width:200px}
-  td.country{font-size:12px;color:var(--muted);white-space:nowrap}
-  td.genres{font-size:11px}
-  .pill{display:inline-block;padding:2px 8px;border-radius:999px;background:var(--surface-2);border:1px solid var(--border);color:var(--muted);margin:1px 2px}
+  td.country{font-size:13px;color:var(--muted);white-space:nowrap}
+  td.genres{font-size:12px}
+  .pill{display:inline-block;padding:3px 9px;border-radius:999px;background:var(--surface-2);border:1px solid var(--border);color:var(--muted);margin:1px 2px}
   .empty-row td{text-align:center;color:var(--muted-2);padding:40px;font-style:italic}
 
   footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted-2);font-size:12px;line-height:1.7}
   footer a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
 
   @media(max-width:980px){
-    .kpis{grid-template-columns:repeat(2,1fr)}
-    .kr-cards{grid-template-columns:1fr}
-    .kr-card{border-right:none;border-bottom:1px solid var(--border-soft)}
+    .kpis{grid-template-columns:repeat(2,1fr);gap:12px}
     .controls{grid-template-columns:1fr 1fr}
+    .table-scroll{max-height:none;overflow:visible}
+    .tbl-head .legend{display:none}
   }
   @media(max-width:560px){
-    .wrap{padding:0 14px 60px}
-    .controls{grid-template-columns:1fr}
-    .kpis{grid-template-columns:1fr 1fr}
+    .wrap{padding:0 14px 50px}
+    header.masthead{padding:24px 0 20px}
+    .masthead-top{gap:10px;margin-bottom:10px}
+    .masthead-sub{font-size:13px}
+    .masthead-meta{gap:14px;font-size:11px}
+    .kpis{grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+    .kpi{padding:14px 14px 12px;border-radius:12px}
+    .kpi .value{font-size:30px;margin-top:8px}
+    .kpi .sub{font-size:11px}
+    .controls{grid-template-columns:1fr;margin-top:18px}
+    input[type=text],select{font-size:16px;padding:13px 12px}
+    .btn-toggle{font-size:15px;padding:13px 14px;justify-content:center}
+    .results-bar{margin-top:14px;font-size:13px}
+    table{font-size:15px}
+    thead th{padding:12px 12px;font-size:12px}
+    tbody td{padding:13px 12px}
+    td.rank{width:46px;font-size:15px}
+    td.title{max-width:none}
+    td.title .en{display:block;margin-left:0;margin-top:2px;font-size:12px}
+    td.dir{max-width:120px}
+    td.country{font-size:12px}
+    .pill{font-size:11px;padding:3px 8px}
+    footer{margin-top:28px;padding-top:16px;font-size:11px;line-height:1.6}
   }
 </style>
 </head>
@@ -201,16 +202,6 @@
     <div class="kpi"><div class="accent-bar"></div><div class="label">제작국 수</div><div class="value" id="kpiCountries">—</div><div class="sub">주요 제작국 기준</div></div>
     <div class="kpi"><div class="accent-bar"></div><div class="label">최다 진출 감독</div><div class="value" id="kpiDirector" style="font-size:22px">—</div><div class="sub" id="kpiDirectorSub">—</div></div>
     <div class="kpi kr"><div class="accent-bar"></div><div class="label">한국 영화</div><div class="value">3</div><div class="sub">1위·43위·99위</div></div>
-  </section>
-
-  <!-- Korean spotlight -->
-  <section class="kr-spotlight">
-    <div class="kr-head">
-      <span class="kr-flag" title="대한민국"><img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_South_Korea.svg" alt="대한민국" width="24" height="16"></span>
-      <h2>한국 영화, 100선 안의 위치</h2>
-      <span class="desc">1위(최정상)부터 99위(후반부)까지 세 편이 이름을 올렸습니다</span>
-    </div>
-    <div class="kr-cards" id="krCards"></div>
   </section>
 
   <!-- Controls -->
@@ -303,19 +294,6 @@ MOVIES.forEach(m=>dirCount[m.director]=(dirCount[m.director]||0)+1);
 const topDir=Object.entries(dirCount).sort((a,b)=>b[1]-a[1])[0];
 document.getElementById('kpiDirector').textContent = topDir[0];
 document.getElementById('kpiDirectorSub').textContent = `${topDir[1]}편 진출 · 최다 기록`;
-
-const krFilms = MOVIES.filter(isKR).sort((a,b)=>a.rank-b.rank);
-const krCards=document.getElementById('krCards');
-krFilms.forEach(m=>{
-  const card=document.createElement('div');card.className='kr-card';
-  const display = m.ko ? `${m.ko} <span class="en">(${m.title})</span>` : m.title;
-  card.innerHTML=`
-    <div class="kr-rank">#${m.rank}<small>/100</small></div>
-    <div class="kr-title">${display}</div>
-    <div class="kr-meta"><span>${m.year}</span><span class="dot"></span><span>${m.director}</span></div>
-    <div class="kr-tags">${m.genres.map(g=>`<span class="tag">${g}</span>`).join('')}</div>`;
-  krCards.appendChild(card);
-});
 
 let state={search:'',country:'',director:'',genre:'',sort:'rank',krOnly:false};
 
